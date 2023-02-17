@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,10 +8,32 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('LoginPage')),
+    return Scaffold(
+      body: Form(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.email), hintText: 'Email'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.lock), hintText: 'Password'),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
