@@ -80,7 +80,9 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
                 ElevatedButton(
-                  onPressed: login(),
+                  onPressed: () {
+                    login();
+                  },
                   child: const Text('Test'),
                 )
               ],
