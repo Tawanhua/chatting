@@ -9,7 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
 
@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 80),
           child: Form(
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -45,6 +46,18 @@ class _LoginPageState extends State<LoginPage> {
                     prefixIcon: Icon(Icons.email),
                     hintText: 'Email',
                   ),
+                  onChanged: (value) => setState(
+                    () {
+                      email = value;
+                    },
+                  ),
+                  validator: (val) {
+                    return RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(val!)
+                        ? null
+                        : "Please enter a valid email";
+                  },
                 ),
                 const SizedBox(height: 15),
                 TextFormField(
@@ -53,6 +66,22 @@ class _LoginPageState extends State<LoginPage> {
                     prefixIcon: Icon(Icons.lock),
                     hintText: 'Password',
                   ),
+                  onChanged: (value) => setState(
+                    () {
+                      password = value;
+                    },
+                  ),
+                  validator: (value) {
+                    if (value!.length < 6) {
+                      return 'Password must be at least 6 characters';
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+                ElevatedButton(
+                  onPressed: login(),
+                  child: const Text('Test'),
                 )
               ],
             ),
@@ -60,6 +89,10 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  login() {
+    if (formKey.currentState!.validate()) {}
   }
 }
 
