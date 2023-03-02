@@ -1,5 +1,4 @@
 import 'package:chatting/helper/helper_function.dart';
-import 'package:chatting/pages/home_page.dart';
 import 'package:chatting/service/auth_service.dart';
 import 'package:chatting/widgets/widgets.dart';
 import 'package:flutter/gestures.dart';
@@ -167,7 +166,7 @@ class _RegisterPageState extends State<RegisterPage> {
           await HelperFunctions.saveUserLoggedInStatus(true);
           await HelperFunctions.saveUserEmailSF(email);
           await HelperFunctions.saveUserNameSF(fullName);
-          nextScreenReplace(context, const HomePage());
+          nextScreenReplace(context, const LoginPage());
         } else {
           showSnackbar(context, Colors.red, value);
           _isLoading = false;
