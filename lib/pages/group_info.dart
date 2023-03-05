@@ -125,17 +125,30 @@ class _GroupInfoState extends State<GroupInfo> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Group: ${widget.groupName}',
+                        'Group Name: ${widget.groupName}',
                         style: const TextStyle(fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(
                         height: 5,
                       ),
-                      Text('Admin: ${getName(widget.adminName)}')
+                      Text(
+                        'Admin: ${getName(widget.adminName)}',
+                        style: const TextStyle(fontWeight: FontWeight.w500),
+                      )
                     ],
                   )
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 18,
+            ),
+            const Text(
+              'Members',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            ),
+            const Divider(
+              thickness: 2,
             ),
             memberList()
           ],
