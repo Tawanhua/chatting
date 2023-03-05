@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text(
           'Groups',
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 27),
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 26),
         ),
       ),
       drawer: Drawer(
@@ -208,9 +208,10 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   int reverseIndex = snapshot.data['groups'].length - index - 1;
                   return GroupTile(
-                      groupId: getId(snapshot.data['groups'][reverseIndex]),
-                      groupName: getName(snapshot.data['groups'][reverseIndex]),
-                      userName: snapshot.data['fullName']);
+                    groupId: getId(snapshot.data['groups'][reverseIndex]),
+                    groupName: getName(snapshot.data['groups'][reverseIndex]),
+                    userName: snapshot.data['fullName'],
+                  );
                 },
               );
             } else {
