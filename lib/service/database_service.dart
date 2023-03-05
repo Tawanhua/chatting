@@ -87,7 +87,6 @@ class DatabaseService {
     DocumentSnapshot documentSnapshot = await userDocumentReference.get();
     List<dynamic> groups = await documentSnapshot['groups'];
 
-    // if user has our groups -> then remove then or also in other part re join
     if (groups.contains("${groupId}_$groupName")) {
       await userDocumentReference.update({
         "groups": FieldValue.arrayRemove(["${groupId}_$groupName"])
@@ -103,5 +102,35 @@ class DatabaseService {
         "members": FieldValue.arrayUnion(["${uid}_$userName"])
       });
     }
+  }
+
+  // Search
+  searchByName(String groupName) {
+    return groupCollection.where('groupName', isEqualTo: groupName).get();
+  }
+
+  Future<bool> isUserJoined(
+      String groupName, String groupId, String userName) async {
+    DocumentReference userDocumentReference = userCollection.doc(uid);
+    DocumentSnapshot documentSnapshot = await userDocumentReference.get();
+
+    List<dynamic> groups = await documentSnapshot['groups'];
+    if (groups.contains("${groupId}_$groupName")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // Send message
+  sendMessage(String groupId, Map<String, dynamic> chatMessageData) async {
+    groupCollection.doc(groupId).collection('messages').add(chatMessageData);
+    groupCollection.doc(groupId).update(
+      {
+        'recentMessage': chatMessageData['message'],
+        'recentMessageSender': chatMessageData['sender'],
+        'recentMessageTime': chatMessageData['time'].toString()
+      },
+    );
   }
 }
